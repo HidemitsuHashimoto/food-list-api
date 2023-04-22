@@ -12,12 +12,19 @@ export async function deleteController(req: FastifyRequest, res: FastifyReply) {
         message: 'ID is required!'
       })
 
-      const data = await prisma.food.delete({
+      const deletedRelated = prisma.categoriesOnFoods.deleteMany({
+        where: {
+          foodId: id
+        }
+      })
+      const deletedFood = prisma.food.delete({
         where: { id }
       })
+
+      const transaction = await prisma.$transaction([deletedRelated, deletedFood])
       res.send({
         status: 200,
-        message: `The food ${data.name} is deleted!`
+        message: `The food ${transaction[1].name} is deleted!`
       })
   }catch(e) {
     if(e instanceof Prisma.PrismaClientKnownRequestError) {

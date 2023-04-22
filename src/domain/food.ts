@@ -6,3 +6,10 @@ export interface Food {
   description?: string
   categories?: Category[]
 }
+
+export interface FoodToSend {
+  id: string
+  name: string
+  description?: string
+  categories?: string[]
+}
