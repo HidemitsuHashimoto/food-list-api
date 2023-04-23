@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node ./src/app.ts",
-    "start": "npx prisma migrate dev",
+    "start": "npx prisma migrate dev --name init",
     "build": "npx prisma migrate deploy"
   },
   "keywords": [],

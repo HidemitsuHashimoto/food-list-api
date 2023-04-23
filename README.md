@@ -9,7 +9,7 @@ npm i
 ## Create dev.db
 
 ```
-npx prisma migrate dev --name init
+npm run start
 ```
 
 ## Start project
