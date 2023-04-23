@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "ts-node ./src/app.ts"
+    "dev": "ts-node ./src/app.ts",
+    "start": "npx prisma migrate dev",
+    "build": "npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
