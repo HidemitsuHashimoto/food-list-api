@@ -1,11 +1,12 @@
 import { Prisma } from '@prisma/client'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import prisma from '../../infra/db.ts'
+import { FoodToSend } from '../../domain/food.ts'
 
 export async function updateController(req: FastifyRequest, res: FastifyReply) {
   try{
     const { id } = req.params as { id: string }
-    const { name, description } = req.body as { name?: string, description?: string }
+    const { name, description, categories } = req.body as FoodToSend
     
     if(!id)
       return res.send({
@@ -27,15 +28,32 @@ export async function updateController(req: FastifyRequest, res: FastifyReply) {
       if(description)
         newData['description'] = description
 
-      const data = await prisma.food.update({
+      if(Array.isArray(categories) && categories.length)
+        newData['categories'] = {
+          create: categories.map(id => ({
+              category: {
+                connect: { id }
+              }
+            }))
+        }
+
+      const relatedData = prisma.categoriesOnFoods.deleteMany({
+        where: {
+          foodId: id
+        }
+      })
+      const updatedData = prisma.food.update({
         where: { id },
         data: { ...newData }
       })
+
+      const transaction = await prisma.$transaction([relatedData, updatedData])
       res.send({
         status: 200,
-        message: `The food ${data.name} is updated!`
+        message: `The food ${transaction[1].name} is updated!`
       })
   }catch(e) {
+    console.log(e)
     if(e instanceof Prisma.PrismaClientKnownRequestError) {
       if(e.code === 'P2025')
         return res.send({
