@@ -11,6 +11,12 @@ const app = Fastify({
 app.register(foodRoutes)
 app.register(categoryRoutes)
 
+app.addHook('preHandler', (req, res, done) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers",  "*");
+    done()
+})
+
 app.listen({ port }, (err) => {
   if(err) {
     app.log.error(err)
