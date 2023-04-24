@@ -1,0 +1,4 @@
+{
+  "plugins": [["babel-plugin-add-import-extension", { "extension": "js", "replace": true }]],
+  "presets": ["@babel/preset-typescript"]
+}
