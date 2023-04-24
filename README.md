@@ -6,6 +6,11 @@
 npm i
 ```
 
+## Change .env to dev DB
+```
+file:./dev.db
+```
+
 ## Create dev.db
 
 ```
