@@ -17,8 +17,8 @@ app.addHook("preHandler", (req, res, done) => {
   done();
 });
 
-app.get("/", (req, res) => {
-  res.send({ status: 200 });
+app.get("/healthz", (req, res) => {
+  res.code(200).send({});
 });
 
 app.listen({ port }, (err) => {
