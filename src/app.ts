@@ -1,8 +1,9 @@
+import * as dotenv from "dotenv";
 import Fastify from "fastify";
 import { categoryRoutes } from "./routes/category-routes";
 import { foodRoutes } from "./routes/food-routes";
 
-const port = 3005;
+dotenv.config();
 
 const app = Fastify({
   logger: true,
@@ -21,9 +22,12 @@ app.get("/healthz", (_, res) => {
   res.code(200).send({});
 });
 
-app.listen({ port }, (err) => {
-  if (err) {
-    app.log.error(err);
-    process.exit(1);
+app.listen(
+  { port: process.env?.["PORT"] ? parseInt(process.env?.["PORT"]) : 3005 },
+  (err) => {
+    if (err) {
+      app.log.error(err);
+      process.exit(1);
+    }
   }
-});
+);
