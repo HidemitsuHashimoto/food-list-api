@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node ./src/app.ts",
-    "build": "npx babel --extensions '.ts' src --out-dir dist",
+    "build": "npx prisma migrate deploy && npx babel --extensions '.ts' src --out-dir dist",
     "migrate": "npx prisma migrate dev --name init"
   },
   "keywords": [],
