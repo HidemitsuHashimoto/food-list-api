@@ -1,6 +1,6 @@
 import Fastify from "fastify";
-import { categoryRoutes } from "./routes/category-routes.ts";
-import { foodRoutes } from "./routes/food-routes.ts";
+import { categoryRoutes } from "./routes/category-routes";
+import { foodRoutes } from "./routes/food-routes";
 
 const port = 3005;
 
