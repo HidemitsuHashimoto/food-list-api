@@ -3,7 +3,10 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { FoodToSend } from "../../domain/food";
 import prisma from "../../infra/db";
 
-export async function updateController(req: FastifyRequest, res: FastifyReply) {
+export async function updateController(
+  req: FastifyRequest,
+  res: FastifyReply
+): Promise<any> {
   try {
     const { id } = req.params as { id: string };
     const { name, description, categories } = req.body as FoodToSend;

@@ -2,7 +2,10 @@ import { Prisma } from "@prisma/client";
 import { FastifyReply, FastifyRequest } from "fastify";
 import prisma from "../../infra/db";
 
-export async function deleteController(req: FastifyRequest, res: FastifyReply) {
+export async function deleteController(
+  req: FastifyRequest,
+  res: FastifyReply
+): Promise<any> {
   try {
     const { id } = req.params as { id: string };
 

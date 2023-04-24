@@ -11,13 +11,13 @@ const app = Fastify({
 app.register(foodRoutes);
 app.register(categoryRoutes);
 
-app.addHook("preHandler", (req, res, done) => {
+app.addHook("preHandler", (_, res, done) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
   done();
 });
 
-app.get("/healthz", (req, res) => {
+app.get("/healthz", (_, res) => {
   res.code(200).send({});
 });
 
